@@ -5,3 +5,5 @@ opciones = [
     "Borrar estudiante registrado",
     "Cerrar el programa",
 ]
+
+estudintedatos = ["ID", "Nombre"]
