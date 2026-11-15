@@ -1,12 +1,24 @@
 # documento para las clases
-class Registroestudiante:
+class Registroesgasto:
     """_summary"""
 
-    def __init__(self, id, nombre):
+    def __init__(self, id, nombre, gastos, ahorros):
         self.id = id
         self.nombre = nombre
-        self.gastosregistro = []
-        self.ahorros = []
+        self.gastosregistro = gastos
+        self.ahorros = ahorros
+
+    def agregargasto(self):
+        pass
+
+    def eliminargasto(self):
+        pass
+
+    def agregarahorro(self):
+        pass
+
+    def eliminarahorro(self):
+        pass
 
 
 class Registrogasto:
