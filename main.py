@@ -22,8 +22,7 @@ while activo:
     elif opcionmenu == "4":
         eliminarregistro()
     elif opcionmenu == "5":
-        cerrarprograma()
-        activo = False
+        activo = cerrarprograma()
     else:
         print(
             f"La opciòn {opcionmenu} que ingreso no se encuentra en las opciones posibles \n vuelva a intentar"
