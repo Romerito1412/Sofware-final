@@ -3,10 +3,6 @@ from funcionesextras import *
 
 
 def registrogasto():
-    """
-    Esta funcion es llamada cuando se elije la opcion 1 del segundi menu, no toma ningun parametro
-    y solo muestra mensajes y te pregunta un input, de ahi llama al metodo de agregargasto de la clase Registrosgastos
-    """
     activo = True
     print("Bienvenido. estas a punto de registrar un gasto")
     while activo:
@@ -18,36 +14,70 @@ def registrogasto():
 
         opcion = input("ID >>> ").strip().upper()
         if opcion != "FIN":
-            Registrosgasto(
-                opcion
-            ).agregargasto()  # a esta clase si se le agrega un parametro que es el ID
-            print("quiere agregar otro registro? S/cualquier otro caracter")
-            decision = input(">>> ").strip().upper()
-            if decision == "S":
-                activo = True
-            else:
-                mensajesaliendo()
-                return True
+            Registrosgasto(opcion).agregargasto()
         else:
             mensajesaliendo()
 
 
 def depositoahorro():
-    pass
+    activo = True
+    while activo:
+        print(
+            "Seleciona el ID del estudiante al que le registraras un ahorro (FIN para terminar)"
+        )
+        opcion = input("ID >>> ").strip().upper()
+        if opcion != "FIN":
+            Registrosgasto(opcion).agregarahorro()
+        else:
+            mensajesaliendo()
+            activo = False
+        
 
 
 def agregarmetaahorro():
-    pass
+    activo = True
+    print("Bienvenido. estas a punto de retirar dinero de los ahorros")
+    while activo:
+        print(
+            "Seleciona el ID del estudiante al que le retiraras dinero (FIN para terminar)"
+        )
+        opcion = input("ID >>> ").strip().upper()
+        if opcion != "FIN":
+            Registrosgasto(opcion).eliminarahorro()
+        else:
+            mensajesaliendo()
+            activo = False
 
 
 def retirodineroahorro():
-    pass
+    activo = True
+    print("Bienvenido. estas a punto de retirar dinero de los ahorros")
+    while activo:
+        print(
+            "Seleciona el ID del estudiante al que le retiraras dinero (FIN para terminar)"
+        )
+        opcion = input("ID >>> ").strip().upper()
+        if opcion != "FIN":
+            Registrosgasto(opcion).eliminarahorro()
+        else:
+            mensajesaliendo()
+            activo = False
 
 
 def elimarregistrogsasto():
-    pass
+    activo = True
+    print("Bienvenido. estas a punto de eliminar un gasto")
+    while activo:
+        print(
+            "Seleciona el ID del estudiante al que le eliminaras un gasto (FIN para terminar)"
+        )
+        opcion = input("ID >>> ").strip().upper()
+        if opcion != "FIN":
+            Registrosgasto(opcion).eliminargasto()
+        else:
+            mensajesaliendo()
+            activo = False
 
 
 def salirmenu():
-    print("\n¡Saliendo del menu!")
-    activo = False
+    mensajesaliendo()
