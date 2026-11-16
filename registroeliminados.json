@@ -1,1 +1,16 @@
-Aquì iran los registros de los estudiantes eliminados del registro
+{
+  "HistorialEliminados": [
+    {
+      "id": "123",
+      "nombre": "123"
+    },
+    {
+      "id": "4321",
+      "nombre": "MANUEL"
+    },
+    {
+      "id": "12312",
+      "nombre": "DQWDQ"
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 # Proyexto final software - Documento principal
 
 import listas
-from funciones import *
+from funcionesmain import *
 
 activo = True
 
