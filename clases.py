@@ -5,7 +5,9 @@ import time
 from funcionesextras import *
 from listas import *
 
-registro = validararchivosdetxt("registrogastos.json", "Gastos")
+registro = validararchivosdetxt(
+    "registrogastos.json", "Gastos"
+)  # revisa si ya existe algun registro y crea una variable llamada registro
 
 
 class Registrosgasto:
@@ -24,15 +26,15 @@ class Registrosgasto:
 
     def agregargasto(self):
         while True:
-            existe = "noseguir"
+            existe = "noseguir"  # variable creada para definir si la persona debe seguir el proceso o no
             with open("registroestudiantes.json", "r", encoding="utf-8") as archivo:
                 estudiantes = json.load(archivo)["Registro"]
                 print("Revisando registros...")
                 time.sleep(1)
                 for estudiante in estudiantes:
                     if self.id == estudiante["id"]:
-                        existe = "siguiente"
-                        seleccionado = estudiante
+                        existe = "siguiente"  # si el estudiante existe la persona puede seguir, sino se le preguntara si quiere agregar otro id
+                        seleccionado = estudiante  # se guarda la informaciòn de la persona si  existe
                 if existe == "siguiente":
                     print(
                         f"Ha elegido al estudiante {seleccionado['nombre'].title()} con el ID {seleccionado['id']}"
@@ -44,23 +46,30 @@ class Registrosgasto:
                             "en cuàl àrea quiere registrar el gasto? (seleccione el numero)"
                         )
                         contador = 0
-                        for area in self.gastosregistro:
+                        for area in (
+                            self.gastosregistro
+                        ):  # se le muestran las 4 opciones existentes
                             contador += 1
                             print(f"{contador}. {area}")
                         decision = input("Area >>> ").strip()
                         if decision == "1":
-                            # Agregar aqui la funciòn (selecionado, registro)
+                            # funcione si que sirve para ingresar el id, el area de gasto y la cantidad gastada para guardarla
                             activo = agregargastoarea(seleccionado, registro, "Comida")
 
                         elif decision == "2":
+                            # funcione si que sirve para ingresar el id, el area de gasto y la cantidad gastada para guardarla
                             activo = agregargastoarea(
                                 seleccionado, registro, "Transporte"
                             )
                         elif decision == "3":
+                            # funcione si que sirve para ingresar el id, el area de gasto y la cantidad gastada para guardarla
                             activo = agregargastoarea(seleccionado, registro, "Salidas")
                         elif decision == "4":
                             activo = agregargastoarea(
-                                seleccionado, registro, "Estudios"
+                                # funcione si que sirve para ingresar el id, el area de gasto y la cantidad gastada para guardarla
+                                seleccionado,
+                                registro,
+                                "Estudios",
                             )
                         else:
                             print("Esa opcion no exsite, pruebe otra")

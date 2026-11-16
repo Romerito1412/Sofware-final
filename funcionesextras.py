@@ -3,6 +3,11 @@ import time
 
 
 def validararchivosdetxt(archivotxt, clave):
+    """Esta funncion se conecta a travez de funcionesmenuestudiantes y funcionesmain que sirven
+    para verificar si algun registre ya existe en el archivo, si no existe crea una lista vacia llamada
+    registro, si sì existe crea la variable registro y tambièn le agrega todo lo que ya tiene el json
+    se le ingresan dos parametros, uno con el nombre del archivo y el otro con el keyvalue para acceder
+    al registro si sì existe"""
     try:
         with open(archivotxt, "r", encoding=("utf-8")) as registro:
             json.load(registro)
@@ -14,6 +19,7 @@ def validararchivosdetxt(archivotxt, clave):
 
 
 def mensajesaliendo():
+    """Es un mensaje dicien que estas saliendo de una opcion"""
     print("saliendo de esta opciòn...")
     time.sleep(1)
     print("...")
@@ -21,6 +27,7 @@ def mensajesaliendo():
 
 
 def mostrarestudiantes():
+    """Esta funcion muestra a los estudiantes con su nombre y ID"""
     print("estos son los ID`s registrados")
     with open("registroestudiantes.json", "r", encoding="utf-8") as archivo:
         textos = json.load(archivo)["Registro"]
@@ -29,6 +36,10 @@ def mostrarestudiantes():
 
 
 def agregargastoarea(seleccionado, registro, area):
+    """Esta funcion sirve para agregar un gasto al json de registro de gastos con el ID de la persona
+    el area donde lo gasto y cuanto gasto
+    se le ingresan los parametros de un diccionario con el ID y nombre de la persona, el registrod e gastos y tambien
+    el area donde gasto el dinero"""
     print("Elija la cantidad de dinero a registrar")
     cant = input("Cantidad (en $) >>> ").strip()
     try:

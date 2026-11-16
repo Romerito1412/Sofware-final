@@ -32,10 +32,12 @@ def registrarestudiante():
                 )
                 continue
             else:
-                if id.isdigit() and int(id) <= 999:  # es decir un numero positvo entero
+                if (
+                    id.isdigit() and int(id) <= 999
+                ):  # es decir un numero positvo entero y si es menor o igual a 999
                     for id_s in registro:
                         if id_s["id"] == id:
-                            existe = True
+                            existe = True  # confirma que el id que ingresaste si existe
                             print("ID ya existente, pruebe otro ID")
                             continue
                 else:
@@ -47,22 +49,24 @@ def registrarestudiante():
                     activo = True
                 else:
                     activo = False
-        activo = True
+        activo = True  # sea crea activo para el loop de abajo
         while activo:  # Validacion del nombre
             nombre = input("Nombre >>> ").upper().strip()
             if nombre.isdigit():  # es decir un numero positvo entero
                 print("Ingreso un nombre no valido, ingrese solo letras")
                 continue
             else:
-                activo = False
+                activo = False  # cierra el ciclo y deja pasar al siguiente paso
 
         estudiante = {
             "id": id,
             "nombre": nombre,
         }  # Aquì se crea  el diccionario que se apendizarà al .Json basado en las varibles id y estudiante declaradas anteriormente
         registro.append(estudiante)
-        with open("registroestudiantes.json", "w", encoding="utf-8") as archivar:
-            json.dump(
+        with open(
+            "registroestudiantes.json", "w", encoding="utf-8"
+        ) as archivar:  # abrimos el archivo
+            json.dump(  # esto es lo que se ingresarà al archivo
                 {
                     "Registro": registro,
                 },
@@ -71,6 +75,7 @@ def registrarestudiante():
                 ensure_ascii=False,
             )
             print("Guardando registro...")
+            time.sleep(1)
 
         print(
             f"Usted ha ingresado al estudiante {nombre} con el id {id}, esta correcto? S/cualquier otra letra"
@@ -82,7 +87,9 @@ def registrarestudiante():
 
 
 def menuestudiantes():
-    """docstring"""
+    """docstring
+    Este es el menù que se mostrarà si elijen la opcion 2, este servirà para ver 5 opciones de
+    edicion mas y tambien una salida de ese menu"""
     activo = True
     while activo:
         print(
@@ -113,7 +120,7 @@ def menuestudiantes():
 def mostrarregistro():
     with open("registroestudiantes.json", "r", encoding="utf-8") as registro:
         estudiantes = json.load(registro)["Registro"]
-        
+
         with open("registrogastos.json", "r", encoding="utf-8") as registro_gasto:
             estudiante_gastos = json.load(registro_gasto)["Gastos"]
 
@@ -121,23 +128,29 @@ def mostrarregistro():
             print(estudiantes)  # primer registro
 
             # Por valor (ej: buscar por id)
-            id = input("Ingrese el id de estudiante para consultar su registro: ").strip()
+            id = input(
+                "Ingrese el id de estudiante para consultar su registro: "
+            ).strip()
             for estudiante in estudiantes:
                 if estudiante["id"] == id:
-                    print(f"Nombre:{estudiante["nombre"]}")
+                    print(f"Nombre:{estudiante['nombre']}")
                     for gasto in estudiante_gastos:
                         if gasto["id"] == id:
-                            print(f"id: {gasto["id"]}")
+                            print(f"id: {gasto['id']}")
                             for gastos in gasto["gastos"]:
                                 print(gastos)
                                 break
 
 
 def eliminarregistro():
-    """docstring"""
-    if registro:
-        activo = True
-        contador = 0
+    """docstring
+    Esta funcion sirve para elimiinar un registro previamente registrado
+    """
+    if registro:  # verifica si existe ya algun registro
+        activo = True  # varibale creada para que el siguiente loop funcione
+        contador = (
+            0  # variable creada para saber el index del archivo a borrar si existe
+        )
         while activo:
             print("Esta es la opciòn para registrar un estudiante")
             print(
@@ -189,6 +202,7 @@ def eliminarregistro():
                                             indent=2,
                                             ensure_ascii=False,
                                         )
+                                    return
                                 else:
                                     contador += 1
                             print(textos)
