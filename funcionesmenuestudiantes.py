@@ -15,6 +15,7 @@ def registrogasto():
         opcion = input("ID >>> ").strip().upper()
         if opcion != "FIN":
             Registrosgasto(opcion).agregargasto()
+            activo = False
         else:
             mensajesaliendo()
 

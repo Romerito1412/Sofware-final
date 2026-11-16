@@ -21,6 +21,22 @@
         "Salidas": [],
         "Estudios": []
       }
+    },
+    {
+      "id": "999",
+      "gastos": {
+        "Comida": [
+          76.0
+        ]
+      }
+    },
+    {
+      "id": "999",
+      "gastos": {
+        "Comida": [
+          421.0
+        ]
+      }
     }
   ]
 }
