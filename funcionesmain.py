@@ -110,15 +110,25 @@ def menuestudiantes():
 
 def mostrarregistro():
     with open("registroestudiantes.json", "r", encoding="utf-8") as registro:
-        estudiantes = json.load(registro)
-        # Por índice
-        print(estudiantes)  # primer registro
+        estudiantes = json.load(registro)["Registro"]
+        
+        with open("registrogastos.json", "r", encoding="utf-8") as registro_gasto:
+            estudiante_gastos = json.load(registro_gasto)["Gastos"]
 
-        # Por valor (ej: buscar por id)
-        for estudiante in estudiantes:
-            if estudiante["id"] == "123":
-                print(estudiante)
-                break
+            # Por índice
+            print(estudiantes)  # primer registro
+
+            # Por valor (ej: buscar por id)
+            id = input("Ingrese el id de estudiante para consultar su registro: ").strip()
+            for estudiante in estudiantes:
+                if estudiante["id"] == id:
+                    print(f"Nombre:{estudiante["nombre"]}")
+                    for gasto in estudiante_gastos:
+                        if gasto["id"] == id:
+                            print(f"id: {gasto["id"]}")
+                            for gastos in gasto["gastos"]:
+                                print(gastos)
+                                break
 
 
 def eliminarregistro():
