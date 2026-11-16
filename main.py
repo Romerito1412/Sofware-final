@@ -7,7 +7,7 @@ activo = True
 
 while activo:
     print(
-        "Bienvenido al contro de gastos para los estudiantes de la residencia [Nombre de la residencia]"
+        "\nBienvenido al contro de gastos para los estudiantes de la residencia [Nombre de la residencia]"
     )
     print("¡Què desea hacer?")
     for index, opciones in enumerate(listas.opciones):
@@ -23,6 +23,7 @@ while activo:
         eliminarregistro()
     elif opcionmenu == "5":
         cerrarprograma()
+        activo = False
     else:
         print(
             f"La opciòn {opcionmenu} que ingreso no se encuentra en las opciones posibles \n vuelva a intentar"

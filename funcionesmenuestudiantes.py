@@ -36,4 +36,5 @@ def elimarregistrogsasto():
 
 
 def salirmenu():
-    pass
+    print(f"\n¡Saliendo del menu!")
+    activo = False

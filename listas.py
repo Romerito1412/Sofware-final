@@ -23,12 +23,3 @@ areasgastos = [
 ]
 
 estudintedatos = ["ID", "Nombre"]
-
-opciones02 = [
-    "Agregar gasto",
-    "Agregar ahorro",
-    "Agregar meta de ahorro",
-    "Quitar gasto",
-    "Quitar ahorro",
-    "Salir"
-]
