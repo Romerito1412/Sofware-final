@@ -15,4 +15,11 @@ opcionesmenuestudiantes = [
     "Salir de este menu",
 ]
 
+areasgastos = [
+    "Comida",
+    "Transporte",
+    "Salidas",
+    "Estudios",
+]
+
 estudintedatos = ["ID", "Nombre"]

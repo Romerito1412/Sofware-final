@@ -1,1 +1,26 @@
-// Aquì iran los registros de los gastos de los estudiantes
+{
+  "Gastos": [
+    {
+      "id": "1234",
+      "gastos": {
+        "Comida": [
+          90.0
+        ],
+        "Transporte": [],
+        "Salidas": [],
+        "Estudios": []
+      }
+    },
+    {
+      "id": "999",
+      "gastos": {
+        "Comida": [
+          67.0
+        ],
+        "Transporte": [],
+        "Salidas": [],
+        "Estudios": []
+      }
+    }
+  ]
+}

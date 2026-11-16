@@ -59,8 +59,6 @@ def registrarestudiante():
         estudiante = {
             "id": id,
             "nombre": nombre,
-            "gastos": {"Comida": [], "Transporte": [], "Salidas": [], "Estudios": []},
-            "ahorros": {"meta": "", "ahorro": 0},
         }  # Aquì se crea  el diccionario que se apendizarà al .Json basado en las varibles id y estudiante declaradas anteriormente
         registro.append(estudiante)
         with open("registroestudiantes.json", "w", encoding="utf-8") as archivar:
@@ -72,6 +70,7 @@ def registrarestudiante():
                 indent=2,
                 ensure_ascii=False,
             )
+            print("Guardando registro...")
 
         print(
             f"Usted ha ingresado al estudiante {nombre} con el id {id}, esta correcto? S/cualquier otra letra"
@@ -88,7 +87,7 @@ def menuestudiantes():
         "Bienvenido al contro de gastos para los estudiantes de la residencia [Nombre de la residencia]"
     )
     print("¡Què desea hacer?")
-    for index, opcioness in enumerate(opcionesmenuestudiantes):
+    for index, opciones in enumerate(opcionesmenuestudiantes):
         print(f"{index + 1}. {opciones}")
     opcionmenu = input().lower().strip()
     if opcionmenu == "1":
@@ -133,11 +132,7 @@ def eliminarregistro():
                 "Tiene que ingresar el id del registro que quiera eliminar (Fin para salir)"
             )
             time.sleep(2)
-            print("estos son los ID`s registrados")
-            with open("registroestudiantes.json", "r", encoding="utf-8") as archivo:
-                textos = json.load(archivo)["Registro"]
-                for texto in textos:
-                    print(f"ID: {texto['id']}, Nombre: {texto['nombre']}")
+            mostrarestudiantes()
             identificacion = input("ID >>> ").strip().upper()
             if identificacion != "FIN":
                 with open("registroestudiantes.json", "r", encoding="utf-8") as archivo:
