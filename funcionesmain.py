@@ -84,7 +84,7 @@ def registrarestudiante():
 def menuestudiantes():
     """docstring"""
     print(
-        "Bienvenido al contro de gastos para los estudiantes de la residencia [Nombre de la residencia]"
+        "\n Bienvenido al contro de gastos para los estudiantes de la residencia [Nombre de la residencia]"
     )
     print("¡Què desea hacer?")
     for index, opciones in enumerate(opcionesmenuestudiantes):
@@ -196,3 +196,5 @@ def eliminarregistro():
 
 def cerrarprograma():
     """docstring"""
+    print("\nCerrando programa, ¡adiós!")
+    return False
