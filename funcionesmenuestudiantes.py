@@ -15,7 +15,13 @@ def registrogasto():
         opcion = input("ID >>> ").strip().upper()
         if opcion != "FIN":
             Registrosgasto(opcion).agregargasto()
-            activo = False
+            print("quiere agregar otro registro? S/cualquier otro caracter")
+            decision = input(">>> ").strip().upper()
+            if decision == "S":
+                activo = True
+            else:
+                mensajesaliendo()
+                return True
         else:
             mensajesaliendo()
 
@@ -37,5 +43,5 @@ def elimarregistrogsasto():
 
 
 def salirmenu():
-    print(f"\n¡Saliendo del menu!")
+    print("\n¡Saliendo del menu!")
     activo = False

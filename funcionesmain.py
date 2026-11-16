@@ -83,29 +83,31 @@ def registrarestudiante():
 
 def menuestudiantes():
     """docstring"""
-    print(
-        "\n Bienvenido al contro de gastos para los estudiantes de la residencia [Nombre de la residencia]"
-    )
-    print("¡Què desea hacer?")
-    for index, opciones in enumerate(opcionesmenuestudiantes):
-        print(f"{index + 1}. {opciones}")
-    opcionmenu = input().lower().strip()
-    if opcionmenu == "1":
-        registrogasto()
-    elif opcionmenu == "2":
-        depositoahorro()
-    elif opcionmenu == "3":
-        agregarmetaahorro()
-    elif opcionmenu == "4":
-        retirodineroahorro()
-    elif opcionmenu == "5":
-        elimarregistrogsasto()
-    elif opcionmenu == "6":
-        salirmenu()
-    else:
+    activo = True
+    while activo:
         print(
-            f"La opciòn {opcionmenu} que ingreso no se encuentra en las opciones posibles \n vuelva a intentar"
+            "\n Bienvenido al contro de gastos para los estudiantes de la residencia [Nombre de la residencia]"
         )
+        print("¡Què desea hacer?")
+        for index, opciones in enumerate(opcionesmenuestudiantes):
+            print(f"{index + 1}. {opciones}")
+        opcionmenu = input().lower().strip()
+        if opcionmenu == "1":
+            activo = registrogasto()
+        elif opcionmenu == "2":
+            depositoahorro()
+        elif opcionmenu == "3":
+            agregarmetaahorro()
+        elif opcionmenu == "4":
+            retirodineroahorro()
+        elif opcionmenu == "5":
+            elimarregistrogsasto()
+        elif opcionmenu == "6":
+            salirmenu()
+        else:
+            print(
+                f"La opciòn {opcionmenu} que ingreso no se encuentra en las opciones posibles \n vuelva a intentar"
+            )
 
 
 def mostrarregistro():

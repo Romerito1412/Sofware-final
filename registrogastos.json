@@ -1,40 +1,34 @@
 {
   "Gastos": [
     {
-      "id": "1234",
-      "gastos": {
-        "Comida": [
-          90.0
-        ],
-        "Transporte": [],
-        "Salidas": [],
-        "Estudios": []
-      }
-    },
-    {
       "id": "999",
       "gastos": {
-        "Comida": [
-          67.0
-        ],
-        "Transporte": [],
-        "Salidas": [],
-        "Estudios": []
-      }
-    },
-    {
-      "id": "999",
-      "gastos": {
-        "Comida": [
-          76.0
+        "Salidas": [
+          12.0
         ]
       }
     },
     {
       "id": "999",
       "gastos": {
+        "Salidas": [
+          2131.0
+        ]
+      }
+    },
+    {
+      "id": "999",
+      "gastos": {
+        "Transporte": [
+          213.0
+        ]
+      }
+    },
+    {
+      "id": "1234",
+      "gastos": {
         "Comida": [
-          421.0
+          321.0
         ]
       }
     }
