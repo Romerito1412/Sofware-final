@@ -92,6 +92,7 @@ def menuestudiantes():
     edicion mas y tambien una salida de ese menu"""
     activo = True
     while activo:
+        
         print(
             "\n Bienvenido al contro de gastos para los estudiantes de la residencia [Nombre de la residencia]"
         )
@@ -100,7 +101,7 @@ def menuestudiantes():
             print(f"{index + 1}. {opciones}")
         opcionmenu = input().lower().strip()
         if opcionmenu == "1":
-            activo = registrogasto()
+            registrogasto()
         elif opcionmenu == "2":
             depositoahorro()
         elif opcionmenu == "3":
@@ -110,7 +111,7 @@ def menuestudiantes():
         elif opcionmenu == "5":
             elimarregistrogsasto()
         elif opcionmenu == "6":
-            salirmenu()
+            activo = salirmenu()
         else:
             print(
                 f"La opciòn {opcionmenu} que ingreso no se encuentra en las opciones posibles \n vuelva a intentar"
@@ -140,7 +141,7 @@ def mostrarregistro():
                     activo_2 = True
                     while activo_2 == True:
                         id_estudiante = input(
-                            "Ingrese el id de estudiante para consultar su registro (o 'salir' para salir): "
+                            "\nIngrese el id de estudiante para consultar su registro (o 'salir' para salir): "
                         ).strip()
                         
                         if id_estudiante.strip().lower() == "salir":
@@ -175,24 +176,30 @@ def mostrarregistro():
                             for ahorro in estudiante_ahorro:
                                 if ahorro["id"] == id_estudiante:
                                     ahorro_encontrado = True
-                                
+                            
                             if total == 0 and not ahorro_encontrado:
                                 print("\nNo se encontraron registros de gastos o ahorros")
-                            else:
-                                if total != 0:
-                                    print("\nGastos:")
-                                    for categoria, lista in registro.gastosregistro.items():
-                                        print(f" {categoria}: {sum(lista)}")
-                                    print(f"\nTotal: {total}")
+                            else:     
+                                if total == 0:
+                                    print("\nNo se encontraron registros de gastos")
+                                else:    
+                                    if total != 0:
+                                        print("\nGastos:")
+                                        for categoria, lista in registro.gastosregistro.items():
+                                            print(f" {categoria}: {sum(lista)}")
+                                        print(f"\nTotal: {total}")
                                 
-                                if ahorro_encontrado:
-                                    print("\nAhorros:")
-                                    for ahorro in estudiante_ahorro:
-                                        if ahorro["id"] == id_estudiante:
-                                            print(f"Meta: {ahorro["Meta"]}")
-                                            print(f"Dinero requerido: {ahorro["Dinerorequerido"]}")
-                                            print(f"Dinero actual: {ahorro["Dineroactual"]}")
-                                            
+                                if not ahorro_encontrado:
+                                    print("\nNo se encontraron registros de ahorros")  
+                                else: 
+                                    if ahorro_encontrado:
+                                        print("\nAhorros:")
+                                        for ahorro in estudiante_ahorro:
+                                            if ahorro["id"] == id_estudiante:
+                                                print(f"Meta: {ahorro["Meta"]}")
+                                                print(f"Dinero requerido: {ahorro["Dinerorequerido"]}")
+                                                print(f"Dinero actual: {ahorro["Dineroactual"]}")
+                                                    
                 elif consulta == "2":
                     registro_general = c.Registrosgasto("general")
                     
@@ -214,8 +221,20 @@ def mostrarregistro():
                         for categoria, lista in registro_general.gastosregistro.items():
                             print(f" {categoria}: {sum(lista)}")
                         print(f"\nTotal general: {total}")
+                    
+                    total_ahorrado = 0
+                    
+                    for ahorro in estudiante_ahorro:
+                        total_ahorrado += ahorro["Dineroactual"]
+                    
+                    if total_ahorrado == 0:
+                        print("\nNo se encontraron registros de ahorros")
+                    else:
+                        print("\nAhorros:")
+                        print(f" Dinero actual total: {total_ahorrado}")
                                 
                 elif consulta == "3":
+                    mensajesaliendo()
                     break
                 else:
                     print("\nDigite porfavor una opción valida (1-3)")
