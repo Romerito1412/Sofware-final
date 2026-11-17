@@ -1,1 +1,10 @@
-// Aquì iran los registros de los ahorros del estudiante
+{
+  "Ahorros": [
+    {
+      "id": "999",
+      "Meta": "Porque soy avariuciooso y me gusta la RCSAMCQJFWCSJ (chele)",
+      "Dinerorequerido": 23.0,
+      "Dineroactual": 0.0
+    }
+  ]
+}
