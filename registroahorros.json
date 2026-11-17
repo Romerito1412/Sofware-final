@@ -2,17 +2,7 @@
   "Ahorros": [
     {
       "id": "999",
-<<<<<<< HEAD
       "Meta": "Para comprar ropa",
-=======
-      "Meta": "Comprar dorga",
-      "Dinerorequerido": 234000.0,
-      "Dineroactual": 890.0
-    },
-    {
-      "id": "23",
-      "Meta": "Porque quiero ser feliz",
->>>>>>> 8f7012856aa4e7f8a9d1bc6787125f4e91f18289
       "Dinerorequerido": 23.0,
       "Dineroactual": 0.0
     },
