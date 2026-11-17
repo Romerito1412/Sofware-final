@@ -118,29 +118,43 @@ def menuestudiantes():
 
 
 def mostrarregistro():
+    """
+    Esta función servirá para buscar todos los registros o buscar uno es específico
+    """
     with open("registroestudiantes.json", "r", encoding="utf-8") as registro:
         estudiantes = json.load(registro)["Registro"]
 
         with open("registrogastos.json", "r", encoding="utf-8") as registro_gasto:
             estudiante_gastos = json.load(registro_gasto)["Gastos"]
+            activo = True
+            while activo == True:
+                # Por índice
+                print("\n")
+                for nombre in estudiantes:
+                    print(nombre)  # primer registro
 
-            # Por índice
-            print(estudiantes)  # primer registro
-
-            # Por valor (ej: buscar por id)
-            id = input(
-                "Ingrese el id de estudiante para consultar su registro: "
-            ).strip()
-            for estudiante in estudiantes:
-                if estudiante["id"] == id:
-                    print(f"Nombre:{estudiante['nombre']}")
+                # Por valor (ej: buscar por id)
+                id_estudiante = input(
+                    "Ingrese el id de estudiante para consultar su registro: "
+                ).strip()
+                for estudiante in estudiantes:
+                    if estudiante["id"] == id_estudiante:
+                        print(f"\nNombre:{estudiante['nombre']}")
+                        print(f"id: {estudiante['id']}")
+                        encontrado = True
+                        break
+                    else:
+                        encontrado = False
+                if not encontrado:
+                    print("\n¡id inválido!")
+                else:
                     for gasto in estudiante_gastos:
-                        if gasto["id"] == id:
-                            print(f"id: {gasto['id']}")
-                            for gastos in gasto["gastos"]:
-                                print(gastos)
-                                break
-
+                        if gasto["id"] == id_estudiante:
+                            for gastos, costo in gasto["gastos"].items():
+                                print(f"{gastos}: {costo}")
+                                gasto_encontrado = True
+                        else:
+                            gasto_encontrado = False
 
 def eliminarregistro():
     """docstring
