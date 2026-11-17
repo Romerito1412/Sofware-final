@@ -136,8 +136,8 @@ class Registrosgasto:
                 print("Este estudiante no tiene gastos registrados")
         else:
             print("Este estudiante no existe, pruebe otro id")
-
-    def agregarahorro(self):
+    
+    def agregarmeta(self):
         existe = False
         with open("registroestudiantes.json", "r", encoding="utf-8") as archivo:
             estudiantes = json.load(archivo)["Registro"]
@@ -162,7 +162,7 @@ class Registrosgasto:
                 print(
                     f"Meta actual: '{registro_previo['Meta']}' por ${registro_previo['Dinerorequerido']} (Ahorrado: ${registro_previo['Dineroactual']})"
                 )
-
+                
             while True:
                 meta = input("Por que esta ahorrando? (Nombre de la meta) >>> ").strip()
                 cant = input("Cantidad de dinero que quisiera ahorrar (en $) >>> ").strip()
@@ -202,7 +202,7 @@ class Registrosgasto:
         else:
             print("Este estudiante no existe, pruebe otro id")
 
-    def eliminarahorro(self):
+    def agregarahorro(self):
         existe = False
         with open("registroestudiantes.json", "r", encoding="utf-8") as archivo:
             estudiantes = json.load(archivo)["Registro"]
@@ -220,17 +220,19 @@ class Registrosgasto:
                     encontrado = item
                     break
             if encontrado and encontrado["Meta"] != "":
+                print(f"Meta actual: {encontrado['Meta']}")
                 print(
-                    f"Meta: {encontrado['Meta']} | Actual: ${encontrado['Dineroactual']} / Requerido: ${encontrado['Dinerorequerido']}"
+                    f"Llevas ahorrado: ${encontrado['Dineroactual']} de ${encontrado['Dinerorequerido']}"
                 )
                 while True:
-                    cant = input("Cantidad a ahorrar (en $) >>> ").strip()
+                    cant = input("¿Cuánto dinero deseas ingresar a tu ahorro? (en $) >>> ").strip()
                     try:
                         cant = float(cant)
                     except ValueError:
                         print("Solo puede ingresar numeros positivos")
                     else:
                         if cant > 0:
+                            anterior = encontrado["Dineroactual"]
                             encontrado["Dineroactual"] += cant
                             with open(
                                 "registroahorros.json", "w", encoding="utf-8"
@@ -241,17 +243,14 @@ class Registrosgasto:
                                     indent=2,
                                     ensure_ascii=False,
                                 )
-                            faltante = (
-                                encontrado["Dinerorequerido"]
-                                - encontrado["Dineroactual"]
+                            print(
+                                f"Antes tenías ${anterior} y agregaste ${cant}."
                             )
                             print(
-                                f"Dinero ahorrado con exito. Saldo actual: ${encontrado['Dineroactual']}"
+                                f"Llevas ahorrado ${encontrado['Dineroactual']} de ${encontrado['Dinerorequerido']}"
                             )
-                            if faltante > 0:
-                                print(f"Le faltan ${faltante} para alcanzar la meta")
-                            else:
-                                print("¡Felicidades! Ha alcanzado su meta de ahorro")
+                            if encontrado["Dineroactual"] >= encontrado["Dinerorequerido"]:
+                                print("¡Felicidades! Ya alcanzaste o superaste tu meta de ahorro.")
                             time.sleep(1)
                             mensajesaliendo()
                             break
@@ -259,7 +258,7 @@ class Registrosgasto:
                             print("Solo puede ingresar numeros positivos")
             else:
                 print(
-                    "Este estudiante no tiene una meta de ahorro registrada. Cree una meta primero."
+                    "Este estudiante no tiene una meta de ahorro registrada. Cree una meta primero en la opción 3."
                 )
         else:
             print("Este estudiante no existe, pruebe otro id")
@@ -282,15 +281,18 @@ class Registrosgasto:
                     encontrado = item
                     break
             if encontrado and encontrado["Dineroactual"] > 0:
-                print(f"Dinero disponible en ahorros: ${encontrado['Dineroactual']}")
+                print(
+                    f"Meta: {encontrado['Meta']} | Dinero disponible en ahorros: ${encontrado['Dineroactual']}"
+                )
                 while True:
-                    cant = input("Cantidad a retirar (en $) >>> ").strip()
+                    cant = input("¿Cuánto dinero desea retirar? (en $) >>> ").strip()
                     try:
                         cant = float(cant)
                     except ValueError:
                         print("Solo puede ingresar numeros positivos")
                     else:
                         if 0 < cant <= encontrado["Dineroactual"]:
+                            anterior = encontrado["Dineroactual"]
                             encontrado["Dineroactual"] -= cant
                             with open(
                                 "registroahorros.json", "w", encoding="utf-8"
@@ -302,18 +304,22 @@ class Registrosgasto:
                                     ensure_ascii=False,
                                 )
                             print(
-                                f"Retiro exitoso. Nuevo saldo: ${encontrado['Dineroactual']}"
+                                f"Retiro exitoso. Tenías ${anterior} y retiraste ${cant}."
+                            )
+                            print(
+                                f"Nuevo saldo en ahorros: ${encontrado['Dineroactual']} de ${encontrado['Dinerorequerido']}"
                             )
                             time.sleep(1)
                             mensajesaliendo()
                             break
                         else:
-                            print("Cantidad invalida o mayor al saldo disponible")
+                            print(
+                                "Cantidad invalida o mayor al dinero que tienes ahorrado"
+                            )
             else:
-                print("Este estudiante no tiene saldo en ahorros para retirar")
+                print("Este estudiante no tiene saldo disponible en ahorros para retirar")
         else:
             print("Este estudiante no existe, pruebe otro id")
-
 
 class Registrogasto:
     """_summary"""
