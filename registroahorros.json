@@ -2,8 +2,20 @@
   "Ahorros": [
     {
       "id": "999",
-      "Meta": "Porque soy avariuciooso y me gusta la RCSAMCQJFWCSJ (chele)",
+      "Meta": "Para comprar ropa",
       "Dinerorequerido": 23.0,
+      "Dineroactual": 0.0
+    },
+    {
+      "id": "4444",
+      "Meta": "Comprar chaqueta de cuero",
+      "Dinerorequerido": 65.0,
+      "Dineroactual": 25.0
+    },
+    {
+      "id": "222",
+      "Meta": "Ir a un día de playa",
+      "Dinerorequerido": 20.0,
       "Dineroactual": 0.0
     }
   ]
