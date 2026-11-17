@@ -302,3 +302,5 @@ def cerrarprograma():
     """docstring"""
     print("\nCerrando programa, ¡adiós!")
     return False
+
+#jejejejej
