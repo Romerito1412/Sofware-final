@@ -63,27 +63,29 @@ def registrarestudiante():
             "nombre": nombre,
         }  # Aquì se crea  el diccionario que se apendizarà al .Json basado en las varibles id y estudiante declaradas anteriormente
         registro.append(estudiante)
-        with open(
-            "registroestudiantes.json", "w", encoding="utf-8"
-        ) as archivar:  # abrimos el archivo
-            json.dump(  # esto es lo que se ingresarà al archivo
-                {
-                    "Registro": registro,
-                },
-                archivar,
-                indent=2,
-                ensure_ascii=False,
-            )
-            print("Guardando registro...")
-            time.sleep(1)
 
         print(
             f"Usted ha ingresado al estudiante {nombre} con el id {id}, esta correcto? S/cualquier otra letra"
         )
         decision = input().strip().upper()
         if decision == "S":  # preguntarle al usuario si estan correctos los datos
+            with open(
+                "registroestudiantes.json", "w", encoding="utf-8"
+            ) as archivar:  # abrimos el archivo
+                json.dump(  # esto es lo que se ingresarà al archivo
+                    {
+                        "Registro": registro,
+                    },
+                    archivar,
+                    indent=2,
+                    ensure_ascii=False,
+                )
+                print("Guardando registro...")
+                time.sleep(1)
             mensajesaliendo()
             break
+        else:
+            print("Vuelva a ingresar los datos")
 
 
 def menuestudiantes():
@@ -125,7 +127,8 @@ def mostrarregistro():
             estudiante_gastos = json.load(registro_gasto)["Gastos"]
 
             # Por índice
-            print(estudiantes)  # primer registro
+            for estudiante in estudiantes:
+                print(estudiante)  # primer registro
 
             # Por valor (ej: buscar por id)
             id = input(
