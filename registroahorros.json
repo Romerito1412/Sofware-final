@@ -17,6 +17,12 @@
       "Meta": "Ir a un día de playa",
       "Dinerorequerido": 20.0,
       "Dineroactual": 0.0
+    },
+    {
+      "id": "23",
+      "Meta": "Comprar tenis",
+      "Dinerorequerido": 50.0,
+      "Dineroactual": 11.0
     }
   ]
 }
