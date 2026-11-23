@@ -17,7 +17,7 @@ def registrarestudiante():
     un diccionario con el nombre `Registro` donde hay una lista con todos los reegistroos ya hechos"""
     print("Esta es la opción para registrar un estudiante")
     while True:
-        print("Tiene que ingresar lo siguiente")
+        print("Tiene que ingresar lo siguiente (Fin para salir)")
         for i in estudintedatos:
             print(f"  -{i}")
         activo = True
@@ -25,8 +25,11 @@ def registrarestudiante():
             id = ""
             existe = False
             print("\n")
-            id = input("ID >>> ").strip()
+            id = input("ID >>> ").strip().title()
             print("\n")
+            if id == "Fin":
+                mensajesaliendo()
+                return
             try:
                 validacion = int(id)
             except ValueError:
