@@ -4,6 +4,7 @@ import time
 
 from funcionesextras import *
 from listas import *
+
 registroahorros = validararchivosdetxt("registroahorros.json", "Ahorros")
 
 registro = validararchivosdetxt(
@@ -102,6 +103,7 @@ class Registrosgasto:
                 while True:
                     print("En cual area quiere eliminar el gasto?")
                     for contador, area in enumerate(areasgastos, start=1):
+                        print(areasgastos, "/////////////////////////////////")
                         print(f"{contador}. {area}: {encontrado['gastos'][area]}")
                     decision = input("Area >>> ").strip()
                     if decision in ["1", "2", "3", "4"]:
@@ -112,7 +114,9 @@ class Registrosgasto:
                             break
                         for i, monto in enumerate(lista_area, start=1):
                             print(f"{i}. ${monto}")
-                        indice = input("Seleccione el numero del gasto a borrar >>> ").strip()
+                        indice = input(
+                            "Seleccione el numero del gasto a borrar >>> "
+                        ).strip()
                         if indice.isdigit() and 1 <= int(indice) <= len(lista_area):
                             eliminado = lista_area.pop(int(indice) - 1)
                             with open(
@@ -136,7 +140,7 @@ class Registrosgasto:
                 print("Este estudiante no tiene gastos registrados")
         else:
             print("Este estudiante no existe, pruebe otro id")
-    
+
     def agregarmeta(self):
         existe = False
         with open("registroestudiantes.json", "r", encoding="utf-8") as archivo:
@@ -162,10 +166,12 @@ class Registrosgasto:
                 print(
                     f"Meta actual: '{registro_previo['Meta']}' por ${registro_previo['Dinerorequerido']} (Ahorrado: ${registro_previo['Dineroactual']})"
                 )
-                
+
             while True:
                 meta = input("Por que esta ahorrando? (Nombre de la meta) >>> ").strip()
-                cant = input("Cantidad de dinero que quisiera ahorrar (en $) >>> ").strip()
+                cant = input(
+                    "Cantidad de dinero que quisiera ahorrar (en $) >>> "
+                ).strip()
                 try:
                     cant = float(cant)
                 except ValueError:
@@ -225,7 +231,9 @@ class Registrosgasto:
                     f"Llevas ahorrado: ${encontrado['Dineroactual']} de ${encontrado['Dinerorequerido']}"
                 )
                 while True:
-                    cant = input("¿Cuánto dinero deseas ingresar a tu ahorro? (en $) >>> ").strip()
+                    cant = input(
+                        "¿Cuánto dinero deseas ingresar a tu ahorro? (en $) >>> "
+                    ).strip()
                     try:
                         cant = float(cant)
                     except ValueError:
@@ -243,14 +251,17 @@ class Registrosgasto:
                                     indent=2,
                                     ensure_ascii=False,
                                 )
-                            print(
-                                f"Antes tenías ${anterior} y agregaste ${cant}."
-                            )
+                            print(f"Antes tenías ${anterior} y agregaste ${cant}.")
                             print(
                                 f"Llevas ahorrado ${encontrado['Dineroactual']} de ${encontrado['Dinerorequerido']}"
                             )
-                            if encontrado["Dineroactual"] >= encontrado["Dinerorequerido"]:
-                                print("¡Felicidades! Ya alcanzaste o superaste tu meta de ahorro.")
+                            if (
+                                encontrado["Dineroactual"]
+                                >= encontrado["Dinerorequerido"]
+                            ):
+                                print(
+                                    "¡Felicidades! Ya alcanzaste o superaste tu meta de ahorro."
+                                )
                             time.sleep(1)
                             mensajesaliendo()
                             break
@@ -317,9 +328,12 @@ class Registrosgasto:
                                 "Cantidad invalida o mayor al dinero que tienes ahorrado"
                             )
             else:
-                print("Este estudiante no tiene saldo disponible en ahorros para retirar")
+                print(
+                    "Este estudiante no tiene saldo disponible en ahorros para retirar"
+                )
         else:
             print("Este estudiante no existe, pruebe otro id")
+
 
 class Registrogasto:
     """_summary"""

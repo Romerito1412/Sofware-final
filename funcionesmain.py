@@ -143,6 +143,8 @@ def mostrarregistro():
                 # Por valor (ej: buscar por id)
                 activo_2 = True
                 while activo_2 == True:
+                    for estudiante in estudiantes:
+                        print(estudiante)
                     id_estudiante = input(
                         "\nIngrese el id de estudiante para consultar su registro (o 'salir' para salir): "
                     ).strip()
@@ -198,7 +200,7 @@ def mostrarregistro():
                                     print(f"\nTotal: {total}")
 
                             if not ahorro_encontrado:
-                                print("\nNo se encontraron registros de ahorros")
+                                print("\nNo se encontraron registros de ahorros\n")
                             else:
                                 if ahorro_encontrado:
                                     print("\nAhorros:")
@@ -211,6 +213,7 @@ def mostrarregistro():
                                             print(
                                                 f"Dinero actual: {ahorro['Dineroactual']}"
                                             )
+                    time.sleep(5)
 
             elif consulta == "2":
                 registro_general = c.Registrosgasto("general")
@@ -270,6 +273,7 @@ def eliminarregistro():
             mostrarestudiantes()
             identificacion = input("ID >>> ").strip().upper()
             if identificacion != "FIN":
+                existe = False
                 with open("registroestudiantes.json", "r", encoding="utf-8") as archivo:
                     textos = json.load(archivo)["Registro"]
                     for texto in textos:
