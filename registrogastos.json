@@ -17,14 +17,6 @@
       }
     },
     {
-      "id": "999",
-      "gastos": {
-        "Transporte": [
-          213.0
-        ]
-      }
-    },
-    {
       "id": "1234",
       "gastos": {
         "Comida": [
@@ -69,6 +61,22 @@
       "gastos": {
         "Salidas": [
           23.0
+        ]
+      }
+    },
+    {
+      "id": "99",
+      "gastos": {
+        "Comida": [
+          13.0
+        ]
+      }
+    },
+    {
+      "id": "99",
+      "gastos": {
+        "Transporte": [
+          43.0
         ]
       }
     }

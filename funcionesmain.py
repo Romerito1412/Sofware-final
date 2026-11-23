@@ -19,11 +19,14 @@ def registrarestudiante():
     while True:
         print("Tiene que ingresar lo siguiente")
         for i in estudintedatos:
-            print(i)
+            print(f"  -{i}")
         activo = True
         while activo:  # Validacion del id y ver si tiene repeticion
+            id = ""
             existe = False
+            print("\n")
             id = input("ID >>> ").strip()
+            print("\n")
             try:
                 validacion = int(id)
             except ValueError:
@@ -33,7 +36,7 @@ def registrarestudiante():
                 continue
             else:
                 if (
-                    id.isdigit() and int(id) <= 999
+                    id.isdigit() and validacion <= 999
                 ):  # es decir un numero positvo entero y si es menor o igual a 999
                     for id_s in registro:
                         if id_s["id"] == id:
@@ -42,7 +45,7 @@ def registrarestudiante():
                             continue
                 else:
                     print(
-                        "Ingreso un ID no valido, ingrese solo numeros enteros positivos e iguales o menores a 999"
+                        "***Ingreso un ID no valido, ingrese solo numeros enteros positivos e iguales o menores a 999"
                     )
                     continue
                 if existe:
@@ -52,26 +55,27 @@ def registrarestudiante():
         activo = True  # sea crea activo para el loop de abajo
         while activo:  # Validacion del nombre
             nombre = input("Nombre >>> ").upper().strip()
+            print("\n")
             if nombre.isdigit():  # es decir un numero positvo entero
                 print("Ingreso un nombre no valido, ingrese solo letras")
                 continue
             else:
                 activo = False  # cierra el ciclo y deja pasar al siguiente paso
 
-        estudiante = {
-            "id": id,
-            "nombre": nombre,
-        }  # Aquì se crea  el diccionario que se apendizarà al .Json basado en las varibles id y estudiante declaradas anteriormente
-        registro.append(estudiante)
-
         print(
-            f"Usted ha ingresado al estudiante {nombre} con el id {id}, esta correcto? S/cualquier otra letra"
+            f"  -Usted ha ingresado al estudiante {nombre} con el id {id}, esta correcto? S/cualquier otra letra"
         )
+
         decision = input().strip().upper()
         if decision == "S":  # preguntarle al usuario si estan correctos los datos
             with open(
                 "registroestudiantes.json", "w", encoding="utf-8"
             ) as archivar:  # abrimos el archivo
+                estudiante = {
+                    "id": id,
+                    "nombre": nombre,
+                }  # Aquì se crea  el diccionario que se apendizarà al .Json basado en las varibles id y estudiante declaradas anteriormente
+                registro.append(estudiante)
                 json.dump(  # esto es lo que se ingresarà al archivo
                     {
                         "Registro": registro,
@@ -89,12 +93,10 @@ def registrarestudiante():
 
 
 def menuestudiantes():
-    #Menú de opción 2
+    # Menú de opción 2
     activo = True
     while activo:
-        print(
-            "\n Bienvenido al control de gastos para los estudiantes"
-        )
+        print("\n Bienvenido al control de gastos para los estudiantes")
         print("¿Qué deseas hacer? Escoge el número de la opción: ")
         for index, opciones in enumerate(opcionesmenuestudiantes):
             print(f"{index + 1}. {opciones}")
@@ -136,13 +138,14 @@ def mostrarregistro():
             print("\n1. Buscar un registro de estudiante por id")
             print("2. Consultar registro general de gastos")
             print("3. Salir de mostrar registro(s)")
+            print("\n")
             consulta = input("Digite la opción que desea realizar: ").strip()
             if consulta == "1":
                 # Por valor (ej: buscar por id)
                 activo_2 = True
                 while activo_2 == True:
-                    for estudiante in estudiantes:
-                        print(estudiante)
+                    print("Elija el id del estudiante cuyo registro quiere revisar")
+                    mostrarestudiantes()
                     id_estudiante = input(
                         "\nIngrese el id de estudiante para consultar su registro (o 'salir' para salir): "
                     ).strip()
@@ -217,7 +220,6 @@ def mostrarregistro():
                 registro_general = c.Registrosgasto("general")
 
                 for gasto in estudiante_gastos:
-                    print(registro_general.gastosregistro)
                     for categoria, montos in gasto["gastos"].items():
                         if categoria in registro_general.gastosregistro:
                             for monto in montos:
@@ -233,8 +235,9 @@ def mostrarregistro():
                     print("\nGastos generales:")
                     for categoria, lista in registro_general.gastosregistro.items():
                         print(f" {categoria}: {sum(lista)}")
+                    time.sleep(5)
                     print(f"\nTotal general: {total}")
-
+                    time.sleep(3)
                 total_ahorrado = 0
 
                 for ahorro in estudiante_ahorro:
@@ -245,6 +248,7 @@ def mostrarregistro():
                 else:
                     print("\nAhorros:")
                     print(f" Dinero actual total: {total_ahorrado}")
+                    time.sleep(3)
 
             elif consulta == "3":
                 mensajesaliendo()
@@ -263,11 +267,12 @@ def eliminarregistro():
             0  # variable creada para saber el index del archivo a borrar si existe
         )
         while activo:
-            print("Esta es la opciòn para registrar un estudiante")
+            print("Esta es la opciòn para eliminar un registrar de un estudiante")
             print(
                 "Tiene que ingresar el id del registro que quiera eliminar (Fin para salir)"
             )
             time.sleep(2)
+            print("\n")
             mostrarestudiantes()
             identificacion = input("ID >>> ").strip().upper()
             if identificacion != "FIN":
@@ -282,7 +287,7 @@ def eliminarregistro():
                         print(
                             f"El ID {identificacion} pertene a al estudiante {texto['nombre']}, esta seguro de querer borrarlo? S/cualquier otro caracter"
                         )
-                        decision = input("S/cualquier otra letra").strip().upper()
+                        decision = input("  -S/cualquier otra letra").strip().upper()
                         if decision == "S":
                             for texto in textos:
                                 if texto["id"] == identificacion:

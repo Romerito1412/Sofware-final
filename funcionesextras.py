@@ -28,6 +28,7 @@ def mensajesaliendo():
 
 def mostrarestudiantes():
     """Esta funcion muestra a los estudiantes con su nombre y ID"""
+    print("\n")
     print("Estos son los ID`s registrados")
     with open("registroestudiantes.json", "r", encoding="utf-8") as archivo:
         textos = json.load(archivo)["Registro"]
@@ -40,37 +41,38 @@ def agregargastoarea(seleccionado, registro, area):
     el area donde lo gasto y cuanto gasto
     se le ingresan los parametros de un diccionario con el ID y nombre de la persona, el registrod e gastos y tambien
     el area donde gasto el dinero"""
-    print("Elija la cantidad de dinero a registrar")
-    cant = input("Cantidad (en $) >>> ").strip()
-    try:
-        cant = float(cant)
-    except ValueError:
-        print("Solo puede ingresar números positivos")
-    else:
-        if cant >= 0:
-            print(
-                f"Usted esta ingresando {cant}$ al estudiante {seleccionado['nombre'].title()}, ID: {seleccionado['id']}"
-            )
-            with open("registrogastos.json", "w", encoding="utf-8") as archivo:
-                registro.append(  # [{dict}]
-                    {
-                        "id": seleccionado["id"],
-                        "gastos": {
-                            area: [],
-                        },
-                    }
-                )
-                registro[-1]["gastos"][area].append(cant)
-                json.dump(
-                    {"Gastos": registro},
-                    archivo,
-                    indent=2,
-                    ensure_ascii=False,
-                )
-                print("guardando registro...")
-                time.sleep(1)
-                mensajesaliendo()
-                return False
-        else:
+    while True:
+        print("Elija la cantidad de dinero a registrar")
+        cant = input("Cantidad (en $) >>> ").strip()
+        try:
+            cant = float(cant)
+        except ValueError:
             print("Solo puede ingresar números positivos")
-            return True
+        else:
+            if cant >= 0:
+                print(
+                    f"\n  -Usted esta ingresando {cant}$ al estudiante {seleccionado['nombre'].title()}, ID: {seleccionado['id']}\n"
+                )
+                with open("registrogastos.json", "w", encoding="utf-8") as archivo:
+                    registro.append(  # [{dict}]
+                        {
+                            "id": seleccionado["id"],
+                            "gastos": {
+                                area: [],
+                            },
+                        }
+                    )
+                    registro[-1]["gastos"][area].append(cant)
+                    json.dump(
+                        {"Gastos": registro},
+                        archivo,
+                        indent=2,
+                        ensure_ascii=False,
+                    )
+                    print("guardando registro...")
+                    time.sleep(1)
+                    mensajesaliendo()
+                    return False
+            else:
+                print("Solo puede ingresar números positivos")
+                return True

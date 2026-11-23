@@ -23,6 +23,12 @@
       "Meta": "Comprar tenis",
       "Dinerorequerido": 50.0,
       "Dineroactual": 11.0
+    },
+    {
+      "id": "99",
+      "Meta": "daniel",
+      "Dinerorequerido": 90.0,
+      "Dineroactual": 0.0
     }
   ]
 }

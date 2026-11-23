@@ -9,6 +9,7 @@ def registrogasto():
         print(
             "Seleciona el ID del estudiante al que le registraras un gasto (FIN para terminar)"
         )
+        time.sleep(1.5)
         mostrarestudiantes()
         opcion = input("ID >>> ").strip().upper()
         if opcion != "FIN":
@@ -33,7 +34,6 @@ def depositoahorro():
         else:
             mensajesaliendo()
             activo_3 = False
-        
 
 
 def agregarmetaahorro():
@@ -72,10 +72,12 @@ def elimarregistrogsasto():
     activo_3 = True
     print("Bienvenido. Estas a punto de eliminar un gasto")
     while activo_3:
-        print("\nSelecciona el ID del estudiante al que le eliminarás un gasto (FIN para terminar)")
+        print(
+            "\nSelecciona el ID del estudiante al que le eliminarás un gasto (FIN para terminar)"
+        )
         mostrarestudiantes()
         opcion = input("ID >>> ").strip().upper()
-        
+
         if opcion != "FIN":
             try:
                 # Llamamos al método
@@ -83,15 +85,15 @@ def elimarregistrogsasto():
             except Exception as e:
                 print(f"\nOcurrió un error inesperado: {e}")
                 input("Presione Enter para continuar...")
-            
+
             # Salimos del bucle sin importar lo que haya pasado
             mensajesaliendo()
-            activo_3 = False 
+            activo_3 = False
         else:
             mensajesaliendo()
             activo_3 = False
 
 
 def salirmenu():
-        mensajesaliendo()
-        return False
+    mensajesaliendo()
+    return False
