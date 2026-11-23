@@ -4,10 +4,10 @@ from funcionesextras import *
 
 def registrogasto():
     activo_3 = True
-    print("Bienvenido. estas a punto de registrar un gasto")
+    print("Bienvenido, estás a punto de registrar un gasto")
     while activo_3:
         print(
-            "Seleciona el ID del estudiante al que le registraras un gasto (FIN para terminar)"
+            "Selecciona el ID del estudiante al que le registrarás un gasto (FIN para terminar)"
         )
         time.sleep(1.5)
         mostrarestudiantes()
@@ -21,10 +21,10 @@ def registrogasto():
 
 def depositoahorro():
     activo_3 = True
-    print("Bienvenido. estas a punto de registrar un ahorro")
+    print("Bienvenido. Estás a punto de registrar un ahorro")
     while activo_3:
         print(
-            "Seleciona el ID del estudiante al que le registraras un ahorro (FIN para terminar)"
+            "Selecciona el ID del estudiante al que le registrarás un ahorro (FIN para terminar)"
         )
         mostrarestudiantes()
         opcion = input("ID >>> ").strip().upper()
@@ -38,10 +38,10 @@ def depositoahorro():
 
 def agregarmetaahorro():
     activo_3 = True
-    print("Bienvenido. estas a punto de establecer una meta de ahorro")
+    print("Bienvenido. Estás a punto de establecer una meta de ahorro")
     while activo_3:
         print(
-            "Seleciona el ID del estudiante al que le estableceras una meta (FIN para terminar)"
+            "Selecciona el ID del estudiante al que le establecerás una meta (FIN para terminar)"
         )
         mostrarestudiantes()
         opcion = input("ID >>> ").strip().upper()
@@ -54,10 +54,10 @@ def agregarmetaahorro():
 
 def retirodineroahorro():
     activo_3 = True
-    print("Bienvenido. estas a punto de retirar dinero de los ahorros")
+    print("Bienvenido. Estás a punto de retirar dinero de los ahorros")
     while activo_3:
         print(
-            "Seleciona el ID del estudiante al que le retiraras dinero (FIN para terminar)"
+            "Selecciona el ID del estudiante al que le retirarás dinero (FIN para terminar)"
         )
         mostrarestudiantes()
         opcion = input("ID >>> ").strip().upper()
@@ -70,7 +70,7 @@ def retirodineroahorro():
 
 def elimarregistrogsasto():
     activo_3 = True
-    print("Bienvenido. Estas a punto de eliminar un gasto")
+    print("Bienvenido, estás a punto de eliminar un gasto")
     while activo_3:
         print(
             "\nSelecciona el ID del estudiante al que le eliminarás un gasto (FIN para terminar)"
@@ -80,13 +80,10 @@ def elimarregistrogsasto():
 
         if opcion != "FIN":
             try:
-                # Llamamos al método
                 Registrosgasto(opcion).eliminargasto()
             except Exception as e:
                 print(f"\nOcurrió un error inesperado: {e}")
                 input("Presione Enter para continuar...")
-
-            # Salimos del bucle sin importar lo que haya pasado
             mensajesaliendo()
             activo_3 = False
         else:

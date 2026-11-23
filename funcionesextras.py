@@ -9,13 +9,10 @@ def validararchivosdetxt(archivotxt, clave):
     se le ingresan dos parametros, uno con el nombre del archivo y el otro con el keyvalue para acceder
     al registro si sì existe"""
     try:
-        with open(archivotxt, "r", encoding=("utf-8")) as registro:
-            json.load(registro)
-    except json.decoder.JSONDecodeError:
-        return []
-    else:
         with open(archivotxt, "r", encoding=("utf-8")) as datos:
             return json.load(datos)[clave]
+    except (FileNotFoundError, json.decoder.JSONDecodeError, KeyError):
+        return []
 
 
 def mensajesaliendo():
@@ -28,12 +25,14 @@ def mensajesaliendo():
 
 def mostrarestudiantes():
     """Esta funcion muestra a los estudiantes con su nombre y ID"""
-    print("\n")
-    print("Estos son los ID`s registrados")
-    with open("registroestudiantes.json", "r", encoding="utf-8") as archivo:
-        textos = json.load(archivo)["Registro"]
-        for texto in textos:
-            print(f"ID: {texto['id']}, Nombre: {texto['nombre']}")
+    print("Estos son los IDs registrados")
+    try:
+        with open("registroestudiantes.json", "r", encoding="utf-8") as archivo:
+            textos = json.load(archivo)["Registro"]
+            for texto in textos:
+                print(f"ID: {texto['id']}, Nombre: {texto['nombre']}")
+    except (FileNotFoundError, json.JSONDecodeError):
+        print("Aún no hay estudiantes registrados.")
 
 
 def agregargastoarea(seleccionado, registro, area):
@@ -41,38 +40,44 @@ def agregargastoarea(seleccionado, registro, area):
     el area donde lo gasto y cuanto gasto
     se le ingresan los parametros de un diccionario con el ID y nombre de la persona, el registrod e gastos y tambien
     el area donde gasto el dinero"""
-    while True:
-        print("Elija la cantidad de dinero a registrar")
-        cant = input("Cantidad (en $) >>> ").strip()
-        try:
-            cant = float(cant)
-        except ValueError:
-            print("Solo puede ingresar números positivos")
-        else:
-            if cant >= 0:
-                print(
-                    f"\n  -Usted esta ingresando {cant}$ al estudiante {seleccionado['nombre'].title()}, ID: {seleccionado['id']}\n"
-                )
-                with open("registrogastos.json", "w", encoding="utf-8") as archivo:
-                    registro.append(  # [{dict}]
-                        {
-                            "id": seleccionado["id"],
-                            "gastos": {
-                                area: [],
-                            },
-                        }
-                    )
-                    registro[-1]["gastos"][area].append(cant)
-                    json.dump(
-                        {"Gastos": registro},
-                        archivo,
-                        indent=2,
-                        ensure_ascii=False,
-                    )
-                    print("guardando registro...")
-                    time.sleep(1)
-                    mensajesaliendo()
-                    return False
-            else:
-                print("Solo puede ingresar números positivos")
-                return True
+    print("Elija la cantidad de dinero a registrar")
+    cant = input("Cantidad (en $) >>> ").strip()
+    try:
+        cant = float(cant)
+    except ValueError:
+        print("Solo puede ingresar números positivos mayores a 0")
+        return True
+    if cant <= 0:
+        print("Solo puede ingresar números positivos mayores a 0")
+        return True
+
+    print(
+        f"Usted esta ingresando {cant}$ al estudiante {seleccionado['nombre'].title()}, ID: {seleccionado['id']}"
+    )
+
+    # Buscar si ya existe un registro para este id
+    encontrado = None
+    for item in registro:
+        if item["id"] == seleccionado["id"]:
+            encontrado = item
+            break
+
+    if encontrado is None:
+        encontrado = {"id": seleccionado["id"], "gastos": {}}
+        registro.append(encontrado)
+
+    if area not in encontrado["gastos"]:
+        encontrado["gastos"][area] = []
+    encontrado["gastos"][area].append(cant)
+
+    with open("registrogastos.json", "w", encoding="utf-8") as archivo:
+        json.dump(
+            {"Gastos": registro},
+            archivo,
+            indent=2,
+            ensure_ascii=False,
+        )
+    print("guardando registro...")
+    time.sleep(1)
+    mensajesaliendo()
+    return False

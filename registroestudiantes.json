@@ -1,10 +1,6 @@
 {
   "Registro": [
     {
-      "id": "1234",
-      "nombre": "JESUSITO"
-    },
-    {
       "id": "999",
       "nombre": "VENUS"
     },
@@ -13,28 +9,24 @@
       "nombre": "RICARDO"
     },
     {
-      "id": "23",
-      "nombre": "WDEW"
-    },
-    {
       "id": "444",
       "nombre": "FERNANDO"
-    },
-    {
-      "id": "448",
-      "nombre": "MIKEIEL"
     },
     {
       "id": "678",
       "nombre": "RIGOBERTO"
     },
     {
-      "id": "20",
-      "nombre": "VENUS"
+      "id": "0",
+      "nombre": "MARIO"
     },
     {
-      "id": "99",
-      "nombre": "EL MERO MERO"
+      "id": "888",
+      "nombre": "JUANITO"
+    },
+    {
+      "id": "333",
+      "nombre": "TONY"
     }
   ]
 }
