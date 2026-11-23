@@ -9,10 +9,6 @@
       "nombre": "RICARDO"
     },
     {
-      "id": "444",
-      "nombre": "FERNANDO"
-    },
-    {
       "id": "678",
       "nombre": "RIGOBERTO"
     },
@@ -27,6 +23,14 @@
     {
       "id": "333",
       "nombre": "TONY"
+    },
+    {
+      "id": "893",
+      "nombre": "JAMON"
+    },
+    {
+      "id": "123",
+      "nombre": "DANIEL"
     }
   ]
 }

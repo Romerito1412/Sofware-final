@@ -59,19 +59,25 @@ def registrarestudiante():
         while activo:  # Validacion del nombre
             nombre = input("Nombre >>> ").upper().strip()
             print("\n")
-            if nombre.isdigit():  # es decir un numero positvo entero
-                print("Ingreso un nombre no valido, ingrese solo letras")
-                continue
-            else:
-                activo = False
+            print(nombre)
+            if nombre:
+                if (
+                    nombre.isdigit() and nombre.strip()
+                ):  # es decir un numero positvo entero
+                    print("Ingreso un nombre no valido, ingrese solo letras")
+                    continue
+                else:
+                    activo = False
 
-        print(
-            f"  -Usted ha ingresado al estudiante {nombre} con el id {id}, esta correcto? S/cualquier otra letra"
-        )
+                print(
+                    f"  -Usted ha ingresado al estudiante {nombre} con el id {id}, esta correcto? S/cualquier otra letra"
+                )
+            else:
+                print("Nombre no valido, ingrese un texto")
+                time.sleep(1.5)
 
         decision = input().strip().upper()
         if decision == "S":
-            registro.append(estudiante)
             with open(
                 "registroestudiantes.json", "w", encoding="utf-8"
             ) as archivar:  # abrimos el archivo
