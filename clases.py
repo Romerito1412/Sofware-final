@@ -13,7 +13,6 @@ registro = validararchivosdetxt(
 
 
 class Registrosgasto:
-    """_summary"""
 
     def __init__(self, id):
         self.id = id
@@ -27,62 +26,63 @@ class Registrosgasto:
         self.ahorros = {"Meta": "", "Dinerorequerido": 0, "Dineroactual": 0}
 
     def agregargasto(self):
-        while True:
-            existe = "noseguir"  # variable creada para definir si la persona debe seguir el proceso o no
+        existe = "noseguir"  # variable creada para definir si la persona debe seguir el proceso o no
+        try:
             with open("registroestudiantes.json", "r", encoding="utf-8") as archivo:
                 estudiantes = json.load(archivo)["Registro"]
-                print("Revisando registros...")
-                time.sleep(1)
-                for estudiante in estudiantes:
-                    if self.id == estudiante["id"]:
-                        existe = "siguiente"  # si el estudiante existe la persona puede seguir, sino se le preguntara si quiere agregar otro id
-                        seleccionado = estudiante  # se guarda la informaciòn de la persona si  existe
-                if existe == "siguiente":
-                    print(
-                        f"Ha elegido al estudiante {seleccionado['nombre'].title()} con el ID {seleccionado['id']}"
+        except (FileNotFoundError, json.JSONDecodeError):
+            print("No hay estudiantes registrados.")
+            return
+
+        print("Revisando registros...")
+        time.sleep(1)
+        for estudiante in estudiantes:
+            if self.id == estudiante["id"]:
+                existe = "siguiente"  # si el estudiante existe la persona puede seguir, sino se le preguntara si quiere agregar otro id
+                seleccionado = estudiante  # se guarda la informaciòn de la persona si  existe
+
+        if existe == "siguiente":
+            print(
+                f"Ha elegido al estudiante {seleccionado['nombre'].title()} con el ID {seleccionado['id']}"
+            )
+            time.sleep(1)
+            activo = True
+            while activo:
+                print(
+                    "¿En cuál área quiere registrar el gasto? (seleccione el número)"
+                )
+                contador = 0
+                for area in (
+                    self.gastosregistro
+                ):  # se le muestran las 4 opciones existentes
+                    contador += 1
+                    print(f"{contador}. {area}")
+                decision = input("Area >>> ").strip()
+                if decision == "1":
+                    # funcione si que sirve para ingresar el id, el area de gasto y la cantidad gastada para guardarla
+                    activo = agregargastoarea(seleccionado, registro, "Comida")
+                elif decision == "2":
+                    # funcione si que sirve para ingresar el id, el area de gasto y la cantidad gastada para guardarla
+                    activo = agregargastoarea(
+                        seleccionado, registro, "Transporte"
                     )
-                    time.sleep(1)
-                    activo = True
-                    while activo:
-                        print(
-                            "en cuàl àrea quiere registrar el gasto? (seleccione el numero)"
-                        )
-                        contador = 0
-                        for area in (
-                            self.gastosregistro
-                        ):  # se le muestran las 4 opciones existentes
-                            contador += 1
-                            print(f"{contador}. {area}")
-                        decision = input("Area >>> ").strip()
-                        if decision == "1":
-                            # funcione si que sirve para ingresar el id, el area de gasto y la cantidad gastada para guardarla
-                            activo = agregargastoarea(seleccionado, registro, "Comida")
-
-                        elif decision == "2":
-                            # funcione si que sirve para ingresar el id, el area de gasto y la cantidad gastada para guardarla
-                            activo = agregargastoarea(
-                                seleccionado, registro, "Transporte"
-                            )
-                        elif decision == "3":
-                            # funcione si que sirve para ingresar el id, el area de gasto y la cantidad gastada para guardarla
-                            activo = agregargastoarea(seleccionado, registro, "Salidas")
-                        elif decision == "4":
-                            activo = agregargastoarea(
-                                # funcione si que sirve para ingresar el id, el area de gasto y la cantidad gastada para guardarla
-                                seleccionado,
-                                registro,
-                                "Estudios",
-                            )
-                        else:
-                            print("Esa opcion no exsite, pruebe otra")
-                            continue
-                    break
+                elif decision == "3":
+                    # funcione si que sirve para ingresar el id, el area de gasto y la cantidad gastada para guardarla
+                    activo = agregargastoarea(seleccionado, registro, "Salidas")
+                elif decision == "4":
+                    activo = agregargastoarea(
+                        # funcione si que sirve para ingresar el id, el area de gasto y la cantidad gastada para guardarla
+                        seleccionado,
+                        registro,
+                        "Estudios",
+                    )
                 else:
-                    print("Este estudiante no existe, pruebe otro id.")
-                    time.sleep(1)
-                    break
+                    print("Esa opción no existe, pruebe otra")
+                    continue
+        else:
+            print("Este estudiante no existe, pruebe otro id.")
+            time.sleep(1)
 
-    
     def eliminargasto(self):
         # 1. Leer el archivo de gastos
         try:
@@ -215,8 +215,8 @@ class Registrosgasto:
         print(f"\nSe eliminó el gasto de ${monto_eliminado} en {area_borrar}.")
         print("Guardando cambios...")
         time.sleep(1)
-        input("Presione Enter para volver al menú...")
-        
+        mensajesaliendo()
+
     def agregarmeta(self):
         existe = False
         with open("registroestudiantes.json", "r", encoding="utf-8") as archivo:
@@ -244,14 +244,14 @@ class Registrosgasto:
                 )
 
             while True:
-                meta = input("Por que esta ahorrando? (Nombre de la meta) >>> ").strip()
+                meta = input("¿Por qué está ahorrando? (Nombre de la meta) >>> ").strip()
                 cant = input(
                     "Cantidad de dinero que quisiera ahorrar (en $) >>> "
                 ).strip()
                 try:
                     cant = float(cant)
                 except ValueError:
-                    print("Solo puede ingresar numeros positivos")
+                    print("Solo puede ingresar números positivos")
                 else:
                     if cant > 0 and meta != "":
                         if registro_previo:
@@ -280,7 +280,7 @@ class Registrosgasto:
                         mensajesaliendo()
                         break
                     else:
-                        print("Datos no validos, vuelva a intentar")
+                        print("Datos no válidos, vuelva a intentar")
         else:
             print("Este estudiante no existe, pruebe otro id")
 
@@ -313,7 +313,7 @@ class Registrosgasto:
                     try:
                         cant = float(cant)
                     except ValueError:
-                        print("Solo puede ingresar numeros positivos")
+                        print("Solo puede ingresar números positivos")
                     else:
                         if cant > 0:
                             anterior = encontrado["Dineroactual"]
@@ -342,7 +342,7 @@ class Registrosgasto:
                             mensajesaliendo()
                             break
                         else:
-                            print("Solo puede ingresar numeros positivos")
+                            print("Solo puede ingresar números positivos")
             else:
                 print(
                     "Este estudiante no tiene una meta de ahorro registrada. Cree una meta primero en la opción 3."
@@ -376,7 +376,7 @@ class Registrosgasto:
                     try:
                         cant = float(cant)
                     except ValueError:
-                        print("Solo puede ingresar numeros positivos")
+                        print("Solo puede ingresar números positivos")
                     else:
                         if 0 < cant <= encontrado["Dineroactual"]:
                             anterior = encontrado["Dineroactual"]
@@ -401,7 +401,7 @@ class Registrosgasto:
                             break
                         else:
                             print(
-                                "Cantidad invalida o mayor al dinero que tienes ahorrado"
+                                "Cantidad inválida o mayor al dinero que tienes ahorrado"
                             )
             else:
                 print(
