@@ -245,6 +245,9 @@ class Registrosgasto:
 
             while True:
                 meta = input("¿Por qué está ahorrando? (Nombre de la meta) >>> ").strip()
+                if meta == "":
+                    print("Necesita llenar este campo")
+                    continue
                 cant = input(
                     "Cantidad de dinero que quisiera ahorrar (en $) >>> "
                 ).strip()
