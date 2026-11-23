@@ -17,13 +17,19 @@ def registrarestudiante():
     un diccionario con el nombre `Registro` donde hay una lista con todos los reegistroos ya hechos"""
     print("Esta es la opción para registrar un estudiante")
     while True:
-        print("Tiene que ingresar lo siguiente")
+        print("Tiene que ingresar lo siguiente (Fin para salir)")
         for i in estudintedatos:
-            print(i)
+            print(f"  -{i}")
         activo = True
         while activo:  # Validacion del id y ver si tiene repeticion
+            id = ""
             existe = False
-            id = input("ID >>> ").strip()
+            print("\n")
+            id = input("ID >>> ").strip().title()
+            print("\n")
+            if id == "Fin":
+                mensajesaliendo()
+                return
             try:
                 validacion = int(id)
             except ValueError:
@@ -32,7 +38,9 @@ def registrarestudiante():
                 )
                 continue
             else:
-                if id.isdigit() and int(id) <= 999:
+                if (
+                    id.isdigit() and validacion <= 999
+                ):  # es decir un numero positvo entero y si es menor o igual a 999
                     for id_s in registro:
                         if id_s["id"] == id:
                             existe = True
@@ -40,7 +48,7 @@ def registrarestudiante():
                             break
                 else:
                     print(
-                        "Ingresó un ID no válido, ingrese solo números enteros positivos e iguales o menores a 999"
+                        "***Ingreso un ID no valido, ingrese solo numeros enteros positivos e iguales o menores a 999"
                     )
                     continue
                 if existe:
@@ -50,25 +58,32 @@ def registrarestudiante():
         activo = True
         while activo:  # Validacion del nombre
             nombre = input("Nombre >>> ").upper().strip()
-            if nombre.isdigit():
-                print("Ingresó un nombre no válido, ingrese solo letras")
+            print("\n")
+            if nombre.isdigit():  # es decir un numero positvo entero
+                print("Ingreso un nombre no valido, ingrese solo letras")
                 continue
             else:
                 activo = False
 
-        estudiante = {"id": id, "nombre": nombre}
-
         print(
-            f"Usted ha ingresado al estudiante {nombre} con el id {id}, esta correcto? S/cualquier otra letra"
+            f"  -Usted ha ingresado al estudiante {nombre} con el id {id}, esta correcto? S/cualquier otra letra"
         )
+
         decision = input().strip().upper()
         if decision == "S":
             registro.append(estudiante)
             with open(
                 "registroestudiantes.json", "w", encoding="utf-8"
-            ) as archivar:
-                json.dump(
-                    {"Registro": registro},
+            ) as archivar:  # abrimos el archivo
+                estudiante = {
+                    "id": id,
+                    "nombre": nombre,
+                }  # Aquì se crea  el diccionario que se apendizarà al .Json basado en las varibles id y estudiante declaradas anteriormente
+                registro.append(estudiante)
+                json.dump(  # esto es lo que se ingresarà al archivo
+                    {
+                        "Registro": registro,
+                    },
                     archivar,
                     indent=2,
                     ensure_ascii=False,
@@ -82,12 +97,10 @@ def registrarestudiante():
 
 
 def menuestudiantes():
-    #Menú de opción 2
+    # Menú de opción 2
     activo = True
     while activo:
-        print(
-            "\n Bienvenido al control de gastos para los estudiantes"
-        )
+        print("\n Bienvenido al control de gastos para los estudiantes")
         print("¿Qué deseas hacer? Escoge el número de la opción: ")
         for index, opciones in enumerate(opcionesmenuestudiantes):
             print(f"{index + 1}. {opciones}")
@@ -124,7 +137,11 @@ def mostrarregistro():
     while activo == True:
         print("\n1. Buscar un registro de estudiante por id")
         print("2. Consultar registro general de gastos")
-        consulta = input("Digite la opción que desea realizar (FIN para salir): ").strip().upper()
+        consulta = (
+            input("Digite la opción que desea realizar (FIN para salir): ")
+            .strip()
+            .upper()
+        )
         if consulta == "1":
             # Por valor (ej: buscar por id)
             activo_2 = True
@@ -194,9 +211,7 @@ def mostrarregistro():
                                     print(
                                         f"Dinero requerido: {ahorro['Dinerorequerido']}"
                                     )
-                                    print(
-                                        f"Dinero actual: {ahorro['Dineroactual']}"
-                                    )
+                                    print(f"Dinero actual: {ahorro['Dineroactual']}")
                 time.sleep(5)
 
         elif consulta == "2":
@@ -239,17 +254,18 @@ def mostrarregistro():
 
 
 def eliminarregistro():
-    """ 
+    """
     Esta funcion sirve para eliminar un registro previamente registrado
     """
     if registro:  # verifica si existe ya algun registro
         activo = True
         while activo:
-            print("Esta es la opción para eliminar un estudiante")
+            print("Esta es la opciòn para eliminar un registrar de un estudiante")
             print(
                 "Tiene que ingresar el id del registro que quiera eliminar (Fin para salir)"
             )
             time.sleep(2)
+            print("\n")
             mostrarestudiantes()
             identificacion = input("ID >>> ").strip().upper()
             if identificacion != "FIN":
@@ -262,7 +278,7 @@ def eliminarregistro():
                         print(
                             f"El ID {identificacion} pertenece al estudiante {texto['nombre']}, esta seguro de querer borrarlo? S/cualquier otro caracter"
                         )
-                        decision = input("S/cualquier otra letra >>> ").strip().upper()
+                        decision = input("  -S/cualquier otra letra").strip().upper()
                         if decision == "S":
                             indice = textos.index(texto)
                             remanente = textos.pop(indice)

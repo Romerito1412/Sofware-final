@@ -9,6 +9,7 @@ def registrogasto():
         print(
             "Selecciona el ID del estudiante al que le registrarás un gasto (FIN para terminar)"
         )
+        time.sleep(1.5)
         mostrarestudiantes()
         opcion = input("ID >>> ").strip().upper()
         if opcion != "FIN":
@@ -71,7 +72,9 @@ def elimarregistrogsasto():
     activo_3 = True
     print("Bienvenido, estás a punto de eliminar un gasto")
     while activo_3:
-        print("\nSelecciona el ID del estudiante al que le eliminarás un gasto (FIN para terminar)")
+        print(
+            "\nSelecciona el ID del estudiante al que le eliminarás un gasto (FIN para terminar)"
+        )
         mostrarestudiantes()
         opcion = input("ID >>> ").strip().upper()
 
