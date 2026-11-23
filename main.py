@@ -7,7 +7,7 @@ activo = True
 
 while activo:
     print(
-        "\nBienvenido al contro de gastos para los estudiantes de la residencia [Nombre de la residencia]"
+        "\nBienvenido al control de gastos para los estudiantes de la residencia [Nombre de la residencia]"
     )
     print("¡Què desea hacer?")
     for index, opciones in enumerate(listas.opciones):
