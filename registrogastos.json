@@ -3,32 +3,56 @@
     {
       "id": "999",
       "gastos": {
-        "Salidas": [12.0, 2131.0],
-        "Transporte": [213.0]
+        "Salidas": [
+          12.0
+        ],
+        "Transporte": [
+          213.0
+        ]
       }
     },
     {
       "id": "1234",
-      "gastos": { "Comida": [321.0] }
+      "gastos": {
+        "Comida": [
+          321.0
+        ]
+      }
     },
     {
       "id": "4444",
-      "gastos": { "Salidas": [200.0] }
+      "gastos": {
+        "Salidas": [
+          200.0
+        ]
+      }
     },
     {
       "id": "444",
       "gastos": {
-        "Transporte": [8.0],
-        "Estudios": [625.0]
+        "Transporte": [
+          8.0
+        ],
+        "Estudios": [
+          625.0
+        ]
       }
     },
     {
       "id": "20",
-      "gastos": { "Estudios": [38.0] }
+      "gastos": {
+        "Estudios": [
+          38.0
+        ]
+      }
     },
     {
       "id": "23",
-      "gastos": { "Salidas": [23.0] }
+      "gastos": {
+        "Salidas": [
+          23.0
+        ]
+      }
     }
   ]
 }
