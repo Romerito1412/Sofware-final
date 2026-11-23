@@ -8,6 +8,10 @@ ejecuciones.
 El programa tiene varias opciones. La primera necesita que le ingreses un ID y un Nombre valido. La opciòn 3 te muestra los registros
 de un estudiante individual o de todos. La opciòn 4 te permite borrar un estudiante por su ID. La opciòn 5 termina todo
 
+La opciòn 1 de la opciòn 2 te permite registrar un gasto. La opciòn 2 te permite agregar un ahorro. La opcion 3 te permite
+agregar una meta de ahorro. La opcion 4 te permite retirar dinero de tus ahorros. La opcion 5 te permite eliminar un registro de gasto
+La opcion 6 te devuelve al menù principal.
+
 # Integrantes
 
 - René Fernando Arévalo Rugamas 
