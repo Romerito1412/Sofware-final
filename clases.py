@@ -82,6 +82,7 @@ class Registrosgasto:
                     time.sleep(1)
                     break
 
+<<<<<<< HEAD
     def eliminargasto(self):
         existe = False
         with open("registroestudiantes.json", "r", encoding="utf-8") as archivo:
@@ -141,6 +142,143 @@ class Registrosgasto:
         else:
             print("Este estudiante no existe, pruebe otro id")
 
+=======
+    
+    def eliminargasto(self):
+        # 1. Leer el archivo de gastos
+        try:
+            with open("registrogastos.json", "r", encoding="utf-8") as archivo:
+                datos = json.load(archivo)
+                gastos_totales = datos.get("Gastos", [])
+        except (FileNotFoundError, json.JSONDecodeError):
+            print("No hay gastos registrados todavía.")
+            input("Presione Enter para continuar...")
+            return
+
+        # 2. Verificar que el estudiante exista
+        try:
+            with open("registroestudiantes.json", "r", encoding="utf-8") as archivo:
+                estudiantes = json.load(archivo)["Registro"]
+        except (FileNotFoundError, json.JSONDecodeError):
+            print("No hay estudiantes registrados.")
+            input("Presione Enter para continuar...")
+            return
+
+        estudiante = None
+        for est in estudiantes:
+            if est["id"] == self.id:
+                estudiante = est
+                break
+
+        if not estudiante:
+            print(f"El estudiante con ID {self.id} no existe.")
+            input("Presione Enter para continuar...")
+            return
+
+        print(f"\nEstudiante: {estudiante['nombre'].title()} (ID: {estudiante['id']})")
+
+        # 3. Recolectar TODOS los gastos del estudiante (pueden estar en varios registros)
+        gastos_por_area = {
+            "Comida": [],
+            "Transporte": [],
+            "Salidas": [],
+            "Estudios": [],
+        }
+
+        for reg in gastos_totales:
+            if reg["id"] == self.id:
+                for area, montos in reg["gastos"].items():
+                    if area in gastos_por_area:
+                        gastos_por_area[area].extend(montos)
+
+        # 4. Mostrar qué gastos tiene actualmente
+        hay_gastos = False
+        print(f"\nGastos actuales del estudiante {self.id}:")
+        for area, lista in gastos_por_area.items():
+            if lista:
+                hay_gastos = True
+                print(f" - {area}: {lista}")
+
+        if not hay_gastos:
+            print("Este estudiante no tiene ningún gasto registrado.")
+            input("Presione Enter para continuar...")
+            return
+
+        # 5. Preguntar de qué área quiere eliminar
+        while True:
+            area_borrar = input(
+                "\n¿De qué área desea eliminar el gasto? (Comida/Transporte/Salidas/Estudios o 'salir') >>> "
+            ).strip().title()
+
+            if area_borrar.lower() == "salir":
+                print("Cancelando eliminación...")
+                return
+
+            if area_borrar not in gastos_por_area:
+                print("Área no válida. Intente de nuevo.")
+                continue
+
+            if not gastos_por_area[area_borrar]:
+                print(f"No hay gastos en {area_borrar}.")
+                continue
+
+            break
+
+        # 6. Mostrar los gastos de esa área numerados
+        print(f"\nGastos en {area_borrar}:")
+        for i, monto in enumerate(gastos_por_area[area_borrar]):
+            print(f" {i}. ${monto}")
+
+        # 7. Pedir el número del gasto a eliminar
+        while True:
+            opcion = input("Ingrese el número del gasto a eliminar (o 'salir') >>> ").strip()
+
+            if opcion.lower() == "salir":
+                print("Cancelando eliminación...")
+                return
+
+            if opcion.isdigit() and 0 <= int(opcion) < len(gastos_por_area[area_borrar]):
+                posicion = int(opcion)
+                monto_eliminado = gastos_por_area[area_borrar][posicion]
+                break
+            else:
+                print("Número inválido. Intente de nuevo.")
+
+        # 8. Eliminar el monto del archivo JSON original
+        eliminado = False
+        nuevos_gastos_totales = []
+
+        for reg in gastos_totales:
+            if reg["id"] == self.id and area_borrar in reg["gastos"]:
+                if monto_eliminado in reg["gastos"][area_borrar] and not eliminado:
+                    reg["gastos"][area_borrar].remove(monto_eliminado)
+                    eliminado = True
+                    # Si la lista queda vacía, quitamos esa área del registro
+                    if not reg["gastos"][area_borrar]:
+                        del reg["gastos"][area_borrar]
+                    # Si el registro quedó sin áreas, no lo agregamos a la lista final
+                    if reg["gastos"]:
+                        nuevos_gastos_totales.append(reg)
+                else:
+                    nuevos_gastos_totales.append(reg)
+            else:
+                nuevos_gastos_totales.append(reg)
+
+        if not eliminado:
+            print("No se pudo eliminar el gasto (no se encontró en el archivo).")
+            input("Presione Enter para continuar...")
+            return
+
+        # 9. Guardar cambios
+        with open("registrogastos.json", "w", encoding="utf-8") as archivo:
+            json.dump({"Gastos": nuevos_gastos_totales}, archivo, indent=2, ensure_ascii=False)
+
+        print(f"\nSe eliminó el gasto de ${monto_eliminado} en {area_borrar}.")
+        print("Guardando cambios...")
+        time.sleep(1)
+        input("Presione Enter para volver al menú...")
+        
+>>>>>>> d76d16b9a74ab3aa624c32a3299a41b67c73f098
     def agregarmeta(self):
         existe = False
         with open("registroestudiantes.json", "r", encoding="utf-8") as archivo:
@@ -333,6 +471,7 @@ class Registrosgasto:
                 )
         else:
             print("Este estudiante no existe, pruebe otro id")
+<<<<<<< HEAD
 
 
 class Registrogasto:
@@ -354,3 +493,5 @@ class Registro:
 
     def __init__(self):
         pass
+=======
+>>>>>>> d76d16b9a74ab3aa624c32a3299a41b67c73f098

@@ -89,15 +89,13 @@ def registrarestudiante():
 
 
 def menuestudiantes():
-    """docstring
-    Este es el menù que se mostrarà si elijen la opcion 2, este servirà para ver 5 opciones de
-    edicion mas y tambien una salida de ese menu"""
+    #Menú de opción 2
     activo = True
     while activo:
         print(
-            "\n Bienvenido al contro de gastos para los estudiantes de la residencia [Nombre de la residencia]"
+            "\n Bienvenido al control de gastos para los estudiantes"
         )
-        print("¡Què desea hacer?")
+        print("¿Qué deseas hacer? Escoge el número de la opción: ")
         for index, opciones in enumerate(opcionesmenuestudiantes):
             print(f"{index + 1}. {opciones}")
         opcionmenu = input().lower().strip()
@@ -115,7 +113,7 @@ def menuestudiantes():
             activo = salirmenu()
         else:
             print(
-                f"La opciòn {opcionmenu} que ingreso no se encuentra en las opciones posibles \n vuelva a intentar"
+                f"El número {opcionmenu} no existe en las opciones posibles \n Vuelva a intentar :)"
             )
 
 
