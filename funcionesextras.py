@@ -20,7 +20,7 @@ def validararchivosdetxt(archivotxt, clave):
 
 def mensajesaliendo():
     """Es un mensaje dicien que estas saliendo de una opcion"""
-    print("saliendo de esta opciòn...")
+    print("Saliendo de esta opción...")
     time.sleep(1)
     print("...")
     time.sleep(1)
@@ -28,7 +28,7 @@ def mensajesaliendo():
 
 def mostrarestudiantes():
     """Esta funcion muestra a los estudiantes con su nombre y ID"""
-    print("estos son los ID`s registrados")
+    print("Estos son los ID`s registrados")
     with open("registroestudiantes.json", "r", encoding="utf-8") as archivo:
         textos = json.load(archivo)["Registro"]
         for texto in textos:
@@ -45,7 +45,7 @@ def agregargastoarea(seleccionado, registro, area):
     try:
         cant = float(cant)
     except ValueError:
-        print("Solo puede ingresar numeros positivos")
+        print("Solo puede ingresar números positivos")
     else:
         if cant >= 0:
             print(
@@ -72,5 +72,5 @@ def agregargastoarea(seleccionado, registro, area):
                 mensajesaliendo()
                 return False
         else:
-            print("solo puede ingresar numeros positivos")
+            print("Solo puede ingresar números positivos")
             return True

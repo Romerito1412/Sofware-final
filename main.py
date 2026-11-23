@@ -1,4 +1,4 @@
-# Proyexto final software - Documento principal
+# Proyecto final software - Documento principal
 
 import listas
 from funcionesmain import *
@@ -7,9 +7,9 @@ activo = True
 
 while activo:
     print(
-        "\nBienvenido al control de gastos para los estudiantes de la residencia [Nombre de la residencia]"
+        "\nBienvenido al sistema de los estudiantes de la residencia Emiliani"
     )
-    print("¡Què desea hacer?")
+    print("¿Qué desea hacer? Ingrese el número de la opción: ")
     for index, opciones in enumerate(listas.opciones):
         print(f"{index + 1}. {opciones}")
     opcionmenu = input().lower().strip()
@@ -25,5 +25,5 @@ while activo:
         activo = cerrarprograma()
     else:
         print(
-            f"La opciòn {opcionmenu} que ingreso no se encuentra en las opciones posibles \n vuelva a intentar"
+            f"El número {opcionmenu} que ingresó no existe en las opciones\n Vuelva a intentar."
         )
