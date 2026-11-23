@@ -82,61 +82,78 @@ class Registrosgasto:
                     break
 
     def eliminargasto(self):
-        existe = False
-        with open("registroestudiantes.json", "r", encoding="utf-8") as archivo:
-            estudiantes = json.load(archivo)["Registro"]
-            print("Revisando registros...")
-            time.sleep(1)
-            for estudiante in estudiantes:
-                if self.id == estudiante["id"]:
-                    existe = True
-                    seleccionado = estudiante
-                    break
-        if existe:
-            encontrado = None
-            for item in registro:
-                if item["id"] == seleccionado["id"]:
-                    encontrado = item
-                    break
-            if encontrado:
-                while True:
-                    print("En cual area quiere eliminar el gasto?")
-                    for contador, area in enumerate(areasgastos, start=1):
-                        print(f"{contador}. {area}: {encontrado['gastos'][area]}")
-                    decision = input("Area >>> ").strip()
-                    if decision in ["1", "2", "3", "4"]:
-                        area = areasgastos[int(decision) - 1]
-                        lista_area = encontrado["gastos"][area]
-                        if not lista_area:
-                            print("No hay gastos registrados en esta area")
-                            break
-                        for i, monto in enumerate(lista_area, start=1):
-                            print(f"{i}. ${monto}")
-                        indice = input("Seleccione el numero del gasto a borrar >>> ").strip()
-                        if indice.isdigit() and 1 <= int(indice) <= len(lista_area):
-                            eliminado = lista_area.pop(int(indice) - 1)
-                            with open(
-                                "registrogastos.json", "w", encoding="utf-8"
-                            ) as archivo:
-                                json.dump(
-                                    {"Gastos": registro},
-                                    archivo,
-                                    indent=2,
-                                    ensure_ascii=False,
-                                )
-                            print(f"Gasto de ${eliminado} eliminado...")
-                            time.sleep(1)
-                            mensajesaliendo()
-                            break
-                        else:
-                            print("Esa opcion no existe, pruebe otra")
-                    else:
-                        print("Esa opcion no existe, pruebe otra")
+        # 1. Leer el archivo de gastos
+        try:
+            with open("registrogastos.json", "r", encoding="utf-8") as archivo:
+                datos = json.load(archivo)
+                gastos_totales = datos.get("Gastos", [])
+        except (FileNotFoundError, json.JSONDecodeError):
+            print("No hay gastos registrados todavía.")
+            return
+
+        # 2. Buscar el registro del estudiante con el ID que se pasó
+        registro_estudiante = None
+        for reg in gastos_totales:
+            if reg["id"] == self.id:
+                registro_estudiante = reg
+                break
+
+        if not registro_estudiante:
+            print(f"El estudiante con ID {self.id} no tiene gastos registrados.")
+            return
+
+        # 3. Mostrar qué gastos tiene actualmente
+        print(f"\nGastos actuales del estudiante {self.id}:")
+        areas = registro_estudiante["gastos"]
+        hay_gastos = False
+        for area, lista in areas.items():
+            if lista:  # Si la lista no está vacía
+                hay_gastos = True
+                print(f" - {area}: {lista}")
+        
+        if not hay_gastos:
+            print("Este estudiante no tiene ningún gasto registrado.")
+            return
+
+        # 4. Preguntar de qué área quiere eliminar
+        while True:
+            area_borrar = input("\n¿De qué área desea eliminar el gasto? (Comida/Transporte/Salidas/Estudios) >>> ").strip().title()
+            
+            if area_borrar not in areas:
+                print("Área no válida. Intente de nuevo.")
+                continue
+            
+            if not areas[area_borrar]:
+                print(f"No hay gastos en {area_borrar}.")
+                continue
+                
+            break # Si el área es válida y tiene gastos, salimos del bucle
+
+        # 5. Mostrar los gastos de esa área numerados
+        print(f"\nGastos en {area_borrar}:")
+        for i, monto in enumerate(areas[area_borrar]):
+            print(f" {i}. ${monto}")
+
+        # 6. Pedir el número del gasto a eliminar y borrarlo
+        while True:
+            opcion = input("Ingrese el número del gasto a eliminar >>> ").strip()
+            
+            if opcion.isdigit() and 0 <= int(opcion) < len(areas[area_borrar]):
+                posicion = int(opcion)
+                eliminado = areas[area_borrar].pop(posicion)  # Aquí se borra
+                print(f"\nSe eliminó el gasto de ${eliminado} en {area_borrar}.")
+                break
             else:
-                print("Este estudiante no tiene gastos registrados")
-        else:
-            print("Este estudiante no existe, pruebe otro id")
-    
+                print("Número inválido. Intente de nuevo.")
+
+        # 7. Guardar los cambios en el archivo .json
+        with open("registrogastos.json", "w", encoding="utf-8") as archivo:
+            json.dump({"Gastos": gastos_totales}, archivo, indent=2, ensure_ascii=False)
+
+        print("Guardando cambios...")
+        time.sleep(1)
+        mensajesaliendo()
+        
     def agregarmeta(self):
         existe = False
         with open("registroestudiantes.json", "r", encoding="utf-8") as archivo:
