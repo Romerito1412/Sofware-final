@@ -7,7 +7,7 @@ ejecuciones.
 
 # Integrantes
 
-- Rene Fernando Arévalo Rugamas 
+- René Fernando Arévalo Rugamas 
 - Ricardo Alberto Zometa Laínez 
-- Venus Valencia Minerva Tobar 
+- Venus Minerva Valencia Tobar 
 - Luis Fernando Romero Mejía 
