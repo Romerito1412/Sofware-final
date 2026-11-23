@@ -29,6 +29,12 @@
       "Meta": "1",
       "Dinerorequerido": 1.0,
       "Dineroactual": 0.0
+    },
+    {
+      "id": "888",
+      "Meta": "Super",
+      "Dinerorequerido": 10.0,
+      "Dineroactual": 0.0
     }
   ]
 }

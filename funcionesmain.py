@@ -124,8 +124,7 @@ def mostrarregistro():
     while activo == True:
         print("\n1. Buscar un registro de estudiante por id")
         print("2. Consultar registro general de gastos")
-        print("3. Salir de mostrar registro(s)")
-        consulta = input("Digite la opción que desea realizar: ").strip()
+        consulta = input("Digite la opción que desea realizar (FIN para salir): ").strip().upper()
         if consulta == "1":
             # Por valor (ej: buscar por id)
             activo_2 = True
@@ -133,10 +132,11 @@ def mostrarregistro():
                 for estudiante in estudiantes:
                     print(f"ID: {estudiante['id']}, Nombre: {estudiante['nombre']}")
                 id_estudiante = input(
-                    "\nIngrese el id de estudiante para consultar su registro (o 'salir' para salir): "
+                    "\nIngrese el id de estudiante para consultar su registro (FIN para salir): "
                 ).strip()
 
-                if id_estudiante.strip().lower() == "salir":
+                if id_estudiante.strip().upper() == "FIN":
+                    mensajesaliendo()
                     break
 
                 encontrado = False
@@ -231,7 +231,7 @@ def mostrarregistro():
                 print("\nAhorros:")
                 print(f" Dinero actual total: {total_ahorrado}")
 
-        elif consulta == "3":
+        elif consulta == "FIN":
             mensajesaliendo()
             break
         else:
